@@ -14,7 +14,7 @@ export default function Footer() {
             SIBITA
           </div>
           <p className="footer-desc">
-            Sistem Bimbingan Tugas Akhir — platform terintegrasi yang membantu mahasiswa dan dosen menyelesaikan skripsi dengan proses yang lebih cepat, rapi, dan terstruktur.
+            Sistem Bimbingan Tugas Akhir platform terintegrasi yang membantu mahasiswa dan dosen menyelesaikan skripsi dengan proses yang lebih cepat, rapi, dan terstruktur.
           </p>
         </div>
 

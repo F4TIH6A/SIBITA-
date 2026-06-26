@@ -1,18 +1,53 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+const ROLES = [
+  { key: "mahasiswa", icon: "🎓", label: "Mahasiswa", desc: "Dashboard bimbingan skripsi" },
+  { key: "dosen", icon: "👨‍🏫", label: "Dosen", desc: "Bimbingan & pemantauan" },
+  { key: "admin", icon: "🛠️", label: "Admin", desc: "Manajemen dosen & referensi" },
+  { key: "superadmin", icon: "👑", label: "Super Admin", desc: "Manajemen pengguna & sistem" },
+];
 
 export default function MasukPage() {
+  const [selectedRole, setSelectedRole] = useState("mahasiswa");
+  const router = useRouter();
+
+  function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    router.push(`/dashboard/${selectedRole}`);
+  }
+
   return (
     <div className="login-page">
       <div className="login-card">
         <div className="login-avatar">
           <svg viewBox="0 0 24 24" fill="none" width="32" height="32">
-            <path d="M4 6.5C4 5.12 5.12 4 6.5 4H17a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="#2B3BAF" strokeWidth="1.6" strokeLinejoin="round"/>
-            <path d="M4 17.5C4 16.12 5.12 15 6.5 15H18" stroke="#2B3BAF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M4 6.5C4 5.12 5.12 4 6.5 4H17a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="#2B3BAF" strokeWidth="1.6" strokeLinejoin="round" />
+            <path d="M4 17.5C4 16.12 5.12 15 6.5 15H18" stroke="#2B3BAF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <h1 className="login-title">Selamat Datang di SIBITA</h1>
 
-        <form style={{ textAlign: "left" }}>
+        {/* Role Selector */}
+        <div className="role-selector-group">
+          {ROLES.map((r) => (
+            <button
+              key={r.key}
+              type="button"
+              className={`role-option ${selectedRole === r.key ? "active" : ""}`}
+              onClick={() => setSelectedRole(r.key)}
+            >
+              <span className="role-option-icon">{r.icon}</span>
+              <span className="role-option-label">{r.label}</span>
+              <span className="role-option-desc">{r.desc}</span>
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={handleLogin} style={{ textAlign: "left" }}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input className="form-input" type="email" id="email" placeholder="nama@gmail.com" />
@@ -26,7 +61,7 @@ export default function MasukPage() {
             </div>
           </div>
 
-          <Link href="/dashboard" className="btn-login">Masuk</Link>
+          <button type="submit" className="btn-login">Masuk</button>
         </form>
 
         <div className="divider">Atau Masuk dengan</div>
